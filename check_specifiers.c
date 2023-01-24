@@ -10,12 +10,12 @@
 int (*check_specifier(const char *format))(va_list)
 {
 	int i;
-	func_t my_array[] = {
+	func_t my_array[] ={
 		{"c", print_c},
 		{"s", print_s},
 		{"i", print_d},
 		{"d", print_d},
-    {NULL, NULL};
+    		{NULL, NULL}};
 	for (i = 0; my_array[i].t != NULL; i++)
 	{
 		if (*(my_array[i].t) == *format)
