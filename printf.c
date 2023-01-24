@@ -1,33 +1,52 @@
 #include "main.h"
 
-int _printf(const char *format,...)
-{
-	size_t traverse = 0;
-	unsigned int i;
-	char *s;
+/**
+  * _printf - Prints out a formatted string
+  * @format: format specifier
+  * @...: variadic parameteras
+  * Return: returns number of characters printed
+  */
 
+int _printf(const char *format, ...)
+{
+	int i = 0;
+	int count = 0;
+	int (*f)(va_list);
 	va_list args;
+
 	va_start(args, format);
 
-	for(; format[traverse] != '\0'; traverse++)
+	if (format == NULL)
+		return (-1);
+	while (format[i])
 	{
-		while(format[traverse] != '%')
+		for (; format[i] != '%' && format[i]; i++)
 		{
-			_putchar(format[traverse]);
-			traverse++;
+			_putchar(format[i]);
+			count++;
 		}
-		traverse++;
-		switch (format[traverse])
+
+		if (!format[i])
+			return (count);
+		f = check_specifier(&format[i + 1]);
+
+
+		if (f != NULL)
 		{
-			case 'c': 
-				i = va_arg(args, int);
-				_putchar(i);
-				break;
-			case 's': s = va_arg(args,char *);
-				  _print_string(s);
-				  break;
+			count += f(args);
+			i += 2;
+			continue;
 		}
+
+		if (!format[i + 1])
+			return (-1);
+
+		_putchar(format[i]);
+		count++;
+		if (format[i + 1] == '%')
+			i += 2;
+		else
+			i++;
 	}
-	va_end(args);
-	return (traverse);
+	return (count);
 }
