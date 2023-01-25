@@ -3,9 +3,9 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
-
 #define UNUSED(x) (void)(x)
 #define BUFF_SIZE 1024
+#include "stdlib.h"
 
 /* FLAGS */
 #define F_MINUS 1
@@ -30,7 +30,7 @@ struct fmt
 			int (*fn)(va_list, char[], int, int, int, int);
 };
 
-
+int _putchar(char c);
 /**
  *  * typedef struct fmt fmt_t - Struct op
  *   *
